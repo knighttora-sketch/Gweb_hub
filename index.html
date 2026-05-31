@@ -51,7 +51,7 @@
             gap: 0.5rem;
         }
 
-        /* --- HERO SECTION --- */
+        /* --- HERO --- */
         .hero {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
@@ -61,20 +61,19 @@
             border-bottom-right-radius: 2rem;
             margin-bottom: 2rem;
         }
-
         .hero h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
         .hero p { opacity: 0.9; font-size: 0.9rem; line-height: 1.5; }
 
-        /* --- CATEGORY TABS --- */
+        /* --- CATEGORY --- */
         .category-scroll {
             display: flex;
             gap: 0.75rem;
             overflow-x: auto;
             padding: 0 1rem 1rem 1rem;
-            scrollbar-width: none; /* Firefox */
+            scrollbar-width: none;
             margin-bottom: 1rem;
         }
-        .category-scroll::-webkit-scrollbar { display: none; /* Chrome/Safari */ }
+        .category-scroll::-webkit-scrollbar { display: none; }
 
         .cat-btn {
             background: var(--bg-card);
@@ -89,7 +88,6 @@
             transition: all 0.2s;
             box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
-
         .cat-btn.active {
             background: var(--primary);
             color: white;
@@ -98,17 +96,8 @@
         }
 
         /* --- PRODUCT GRID --- */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 1rem;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; }
 
         .product-card {
             background: var(--bg-card);
@@ -120,99 +109,92 @@
             display: flex;
             flex-direction: column;
         }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px rgba(0,0,0,0.1); }
 
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
-        }
+        .product-img { width: 100%; height: 140px; object-fit: cover; background: #e2e8f0; }
 
-        .product-img {
-            width: 100%;
-            height: 140px;
-            object-fit: cover;
-            background: #e2e8f0;
-        }
-
-        .product-info {
-            padding: 1rem;
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-        }
-
-        .product-category {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 0.25rem;
-        }
-
-        .product-name {
-            font-weight: 600;
-            font-size: 0.95rem;
-            margin-bottom: 0.5rem;
-            line-height: 1.3;
-            color: var(--text-main);
-            flex: 1;
-            /* Batasi 2 baris */
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .product-price {
-            font-weight: 700;
-            color: var(--primary);
-            font-size: 1.1rem;
-            margin-bottom: 0.75rem;
-        }
+        .product-info { padding: 1rem; display: flex; flex-direction: column; flex: 1; }
+        .product-category { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.25rem; }
+        .product-name { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.5rem; line-height: 1.3; flex: 1; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .product-price { font-weight: 700; color: var(--primary); font-size: 1.1rem; margin-bottom: 0.75rem; }
 
         .btn-buy {
-            width: 100%;
-            padding: 0.75rem;
-            border: none;
-            border-radius: 8px;
-            background: var(--text-main);
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-            transition: background 0.2s;
+            width: 100%; padding: 0.75rem; border: none; border-radius: 8px; background: var(--text-main);
+            color: white; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-size: 0.9rem; transition: background 0.2s;
         }
-
-        .btn-buy:hover {
-            background: var(--primary);
-        }
+        .btn-buy:hover { background: var(--primary); }
 
         /* --- EMPTY STATE --- */
-        .empty-state {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 3rem;
-            color: var(--text-muted);
-        }
+        .empty-state { grid-column: 1 / -1; text-align: center; padding: 3rem; color: var(--text-muted); }
         .empty-state i { font-size: 3rem; margin-bottom: 1rem; opacity: 0.5; }
 
         /* --- FOOTER --- */
-        .footer {
-            margin-top: 4rem;
-            padding: 2rem 1rem;
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            border-top: 1px solid var(--border);
+        .footer { margin-top: 4rem; padding: 2rem 1rem; text-align: center; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid var(--border); }
+
+        /* --- MODAL STYLE --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6); z-index: 1000;
+            display: none; justify-content: center; align-items: flex-end;
         }
+        .modal-overlay.active { display: flex; }
+
+        .modal-content {
+            background: white; width: 100%; max-width: 500px;
+            border-radius: 20px 20px 0 0; padding: 1.5rem;
+            animation: slideUp 0.3s ease-out; max-height: 90vh; overflow-y: auto;
+        }
+        @media (min-width: 768px) {
+            .modal-overlay { align-items: center; }
+            .modal-content { border-radius: 16px; width: 450px; }
+        }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.8rem; }
+        .modal-title { font-size: 1.1rem; font-weight: 700; }
+        .close-btn { background: none; border: none; font-size: 1.5rem; color: var(--text-muted); cursor: pointer; }
+
+        .payment-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-bottom: 1.5rem; }
+        .pay-option {
+            border: 2px solid var(--border); border-radius: 12px; padding: 1rem 0.5rem;
+            text-align: center; cursor: pointer; transition: all 0.2s;
+        }
+        .pay-option:hover { border-color: var(--primary); background: #eff6ff; }
+        .pay-option.selected { border-color: var(--primary); background: #eff6ff; }
+        .pay-option i { font-size: 1.8rem; color: var(--text-main); margin-bottom: 0.5rem; }
+        .pay-option span { font-size: 0.8rem; font-weight: 600; }
+
+        /* AREA DETAIL PEMBAYARAN */
+        .payment-detail-box {
+            background: #f8fafc; border: 1px dashed var(--border);
+            padding: 1.5rem; border-radius: 12px; text-align: center; margin-bottom: 1.5rem;
+            display: none; /* Hidden default */
+        }
+        .payment-detail-box.active { display: block; animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .detail-label { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+        .detail-value {
+            font-size: 1.25rem; font-weight: 700; color: var(--text-main);
+            margin-bottom: 0.5rem; user-select: all; /* Agar mudah di-copy */
+        }
+        .detail-value.copyable { cursor: pointer; border-bottom: 1px dotted var(--text-muted); }
+        
+        .qris-container { display: flex; justify-content: center; margin-bottom: 1rem; }
+        .qris-img { width: 200px; height: 200px; object-fit: contain; border: 1px solid var(--border); border-radius: 8px; }
+
+        .btn-confirm {
+            width: 100%; padding: 1rem; background: #25D366; color: white; border: none;
+            border-radius: 12px; font-weight: 600; font-size: 1rem; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: background 0.2s;
+        }
+        .btn-confirm:hover { background: #1ebe57; }
+        .btn-confirm:disabled { background: #ccc; cursor: not-allowed; }
+
     </style>
 </head>
 <body>
 
-    <!-- Navbar -->
     <nav class="navbar">
         <div class="brand">
             <i class="ph ph-shopping-bag"></i> KSHOP
@@ -222,68 +204,120 @@
         </div>
     </nav>
 
-    <!-- Hero -->
     <header class="hero">
         <h1>Selamat Datang!</h1>
         <p>Temukan produk game dan digital terbaik dengan harga termurah.</p>
     </header>
 
-    <!-- Main Content -->
     <main class="container">
-        
-        <!-- Category Tabs -->
-        <div class="category-scroll" id="categoryScroll">
-            <!-- Kategori akan digenerate oleh JavaScript -->
-            <div class="cat-btn active" onclick="filterCategory('all')">Semua</div>
-        </div>
-
-        <!-- Product Grid -->
-        <div id="productGrid" class="product-grid">
-            <!-- Produk akan digenerate oleh JavaScript -->
-        </div>
+        <div class="category-scroll" id="categoryScroll"></div>
+        <div id="productGrid" class="product-grid"></div>
     </main>
 
-    <!-- Footer -->
     <footer class="footer">
         <p>&copy; 2023 KSHOP. All rights reserved.</p>
     </footer>
 
+    <!-- MODAL PEMBAYARAN -->
+    <div class="modal-overlay" id="paymentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Pilih Pembayaran</div>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            
+            <div class="payment-grid">
+                <div class="pay-option" onclick="showPaymentDetail('DANA')" id="opt-DANA">
+                    <i class="ph ph-wallet" style="color:#118EEA;"></i><div>DANA</div>
+                </div>
+                <div class="pay-option" onclick="showPaymentDetail('QRIS')" id="opt-QRIS">
+                    <i class="ph ph-qr-code" style="color:#be1e2d;"></i><div>QRIS</div>
+                </div>
+                <div class="pay-option" onclick="showPaymentDetail('Banking')" id="opt-Banking">
+                    <i class="ph ph-bank" style="color:#F79E1B;"></i><div>Banking</div>
+                </div>
+            </div>
+
+            <!-- AREA DINAMIS DETAIL (Muncul sesuai pilihan) -->
+            
+            <!-- 1. DETAIL DANA -->
+            <div id="detail-DANA" class="payment-detail-box">
+                <div class="detail-label">Nomor DANA</div>
+                <div class="detail-value copyable" onclick="copyToClip('CONFIG_DANA')">
+                    <span id="display-DANA">Loading...</span>
+                    <i class="ph ph-copy" style="font-size:0.8rem; margin-left:5px; opacity:0.5;"></i>
+                </div>
+                <p style="font-size:0.8rem; color:var(--text-muted);">Klik nomor untuk menyalin</p>
+            </div>
+
+            <!-- 2. DETAIL QRIS -->
+            <div id="detail-QRIS" class="payment-detail-box">
+                <div class="qris-container">
+                    <img id="display-QRIS" src="" class="qris-img" alt="QRIS">
+                </div>
+                <div class="detail-label">Scan QRIS di atas</div>
+            </div>
+
+            <!-- 3. DETAIL BANKING -->
+            <div id="detail-Banking" class="payment-detail-box">
+                <div class="detail-label">Bank</div>
+                <div class="detail-value" id="display-BankName" style="font-size:1rem;">Loading...</div>
+                
+                <div class="detail-label" style="margin-top:1rem;">Nomor Rekening</div>
+                <div class="detail-value copyable" onclick="copyToClip('CONFIG_BANK')">
+                    <span id="display-Bank">Loading...</span>
+                    <i class="ph ph-copy" style="font-size:0.8rem; margin-left:5px; opacity:0.5;"></i>
+                </div>
+            </div>
+
+            <button class="btn-confirm" id="btnConfirmWA" onclick="processOrder()" disabled>
+                <i class="ph ph-whatsapp-logo"></i> Sudah Bayar? Chat Admin
+            </button>
+        </div>
+    </div>
+
     <script>
         // ==========================================
-        // KONFIGURASI ADMIN (WAJIB DIISI)
+        // KONFIGURASI ADMIN (ISI DATA ANDA DI SINI)
         // ==========================================
         const ADMIN_CONFIG = {
-            // Nomor WA (Format 628...)
             whatsappNumber: "6285138048641", 
             storeName: "KSHOP",
-            greeting: "Halo Admin, saya ingin order:"
+            
+            // --- DATA PEMBAYARAN ---
+            
+            // 1. DANA
+            danaNumber: "0812-3456-7890", 
+            
+            // 2. QRIS
+            // Masukkan Link Gambar QRIS Anda di sini (bisa link GitHub / Imgur)
+            // Contoh: "https://raw.githubusercontent.com/username/repo/main/qris.jpg"
+            qrisImage: "https://github.com/knighttora-sketch/Gweb_hub/blob/main/images%20(38).jpeg", 
+            
+            // 3. BANKING
+            bankName: "BCA",
+            bankAccount: "123-456-7890",
+            bankOwner: "Nama Pemilik Rek"
         };
 
         // ==========================================
-        // DATA PRODUK (COPY DATA DARI KASIR KE SINI)
+        // DATA PRODUK
         // ==========================================
-        // Jika Anda mengupload di GitHub, data di LocalStorage browser
-        // laptop Anda tidak akan terbaca. 
-        // Jadi, PASTE DATA PRODUK DARI KASIR ANDA KE BAWAH INI:
-        
         const fallbackProducts = [
-            // CONTOH FORMAT DATA:
-            // { id: 1, name: "Nama Produk", price: 10000, category: "Nama Kategori", image: null },
-            
-            // HAPUS CONTOH DI BAWAH INI SAAT PAKAI, GANTI DENGAN DATA ANDA
             { id: 1, name: "Diamond 1000", price: 150000, category: "Top Up", image: null },
             { id: 2, name: "Weekly Diamond Pass", price: 28000, category: "Voucher", image: null },
             { id: 3, name: "Epic Badge - Radiant", price: 150000, category: "Item", image: null },
-            { id: 4, name: "Starlight Member", price: 150000, category: "Top Up", image: null },
-            { id: 5, name: "Starlight", price: 150000, category: "Data", image: null }
+            { id: 4, name: "Starlight Member", price: 150000, category: "Top Up", image: null }
         ];
 
         // ==========================================
-        // LOGIKA JAVASCRIPT (JANGAN DIUBAH)
+        // LOGIKA JAVASCRIPT
         // ==========================================
         
         let products = [];
         let activeCategory = 'all';
+        let selectedProduct = null;
+        let selectedPaymentMethod = null;
 
         function formatRupiah(num) {
             return 'Rp ' + num.toLocaleString('id-ID');
@@ -293,60 +327,45 @@
             loadProducts();
             renderCategories();
             renderProducts();
+            
+            // Pre-load Data ke UI
+            document.getElementById('display-DANA').innerText = ADMIN_CONFIG.danaNumber;
+            document.getElementById('display-QRIS').src = ADMIN_CONFIG.qrisImage;
+            document.getElementById('display-BankName').innerText = ADMIN_CONFIG.bankName;
+            document.getElementById('display-Bank').innerText = `${ADMIN_CONFIG.bankAccount} (a.n ${ADMIN_CONFIG.bankOwner})`;
         }
 
         function loadProducts() {
             try {
                 const stored = localStorage.getItem('products');
-                if (stored) {
-                    products = JSON.parse(stored);
-                } else {
-                    products = fallbackProducts;
-                }
+                products = stored ? JSON.parse(stored) : fallbackProducts;
             } catch (e) {
                 products = fallbackProducts;
             }
         }
 
-        // 1. Render Kategori (Otomatis dari data produk)
         function renderCategories() {
             const container = document.getElementById('categoryScroll');
-            
-            // Ambil daftar kategori unik
             const categories = [...new Set(products.map(p => p.category))];
-            
             let html = `<div class="cat-btn ${activeCategory === 'all' ? 'active' : ''}" onclick="filterCategory('all')">Semua</div>`;
-            
             categories.forEach(cat => {
                 html += `<div class="cat-btn ${activeCategory === cat ? 'active' : ''}" onclick="filterCategory('${cat}')">${cat}</div>`;
             });
-            
             container.innerHTML = html;
         }
 
-        // 2. Render Produk berdasarkan kategori aktif
         function renderProducts() {
             const grid = document.getElementById('productGrid');
             grid.innerHTML = '';
-
-            // Filter produk
-            const filtered = activeCategory === 'all' 
-                ? products 
-                : products.filter(p => p.category.toLowerCase() === activeCategory.toLowerCase());
+            const filtered = activeCategory === 'all' ? products : products.filter(p => p.category.toLowerCase() === activeCategory.toLowerCase());
 
             if (filtered.length === 0) {
-                grid.innerHTML = `
-                    <div class="empty-state">
-                        <i class="ph ph-package"></i>
-                        <p>Belum ada produk di kategori ini.</p>
-                    </div>`;
+                grid.innerHTML = `<div class="empty-state"><i class="ph ph-package"></i><p>Belum ada produk.</p></div>`;
                 return;
             }
 
             filtered.forEach(p => {
-                // Gunakan placeholder jika tidak ada gambar
                 const imgSrc = p.image ? p.image : `https://ui-avatars.com/api/?name=${p.name}&background=random&size=300`;
-                
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 card.innerHTML = `
@@ -355,7 +374,7 @@
                         <div class="product-category">${p.category}</div>
                         <div class="product-name">${p.name}</div>
                         <div class="product-price">${formatRupiah(p.price)}</div>
-                        <button class="btn-buy" onclick="buyViaWhatsapp(${p.id})">
+                        <button class="btn-buy" onclick="openPaymentModal(${p.id})">
                             <i class="ph ph-whatsapp-logo"></i> Beli Sekarang
                         </button>
                     </div>
@@ -364,30 +383,76 @@
             });
         }
 
-        // 3. Fungsi Filter
         function filterCategory(category) {
             activeCategory = category;
-            renderCategories(); // Update tombol active
-            renderProducts();   // Update grid
+            renderCategories();
+            renderProducts();
         }
 
-        // 4. Kirim ke WA
-        function buyViaWhatsapp(id) {
-            const p = products.find(x => x.id === id);
-            if (!p) return;
+        // --- LOGIKA MODAL PEMBAYARAN ---
+        function openPaymentModal(productId) {
+            selectedProduct = products.find(p => p.id === productId);
+            selectedPaymentMethod = null;
+            resetPaymentUI();
+            document.getElementById('paymentModal').classList.add('active');
+        }
 
-            const msg = `${ADMIN_CONFIG.greeting}\n\n` +
-                       `🛍️ *Produk:* ${p.name}\n` +
-                       `💰 *Harga:* ${formatRupiah(p.price)}\n` +
-                       `📂 *Kategori:* ${p.category}\n\n` +
-                       `Mohon info stok & pembayarannya. Terima kasih!`;
+        function closeModal() {
+            document.getElementById('paymentModal').classList.remove('active');
+        }
+
+        function resetPaymentUI() {
+            document.querySelectorAll('.pay-option').forEach(el => el.classList.remove('selected'));
+            document.querySelectorAll('.payment-detail-box').forEach(el => el.classList.remove('active'));
+            document.getElementById('btnConfirmWA').disabled = true;
+        }
+
+        function showPaymentDetail(method) {
+            selectedPaymentMethod = method;
+            
+            // 1. Highlight tombol
+            document.querySelectorAll('.pay-option').forEach(el => el.classList.remove('selected'));
+            document.getElementById(`opt-${method}`).classList.add('selected');
+
+            // 2. Hide semua detail
+            document.querySelectorAll('.payment-detail-box').forEach(el => el.classList.remove('active'));
+
+            // 3. Show detail yang dipilih
+            const detailBox = document.getElementById(`detail-${method}`);
+            if(detailBox) detailBox.classList.add('active');
+
+            // 4. Enable tombol konfirmasi
+            document.getElementById('btnConfirmWA').disabled = false;
+        }
+
+        function copyToClip(type) {
+            let text = "";
+            if(type === 'CONFIG_DANA') text = ADMIN_CONFIG.danaNumber;
+            if(type === 'CONFIG_BANK') text = `${ADMIN_CONFIG.bankAccount} (${ADMIN_CONFIG.bankName} - ${ADMIN_CONFIG.bankOwner})`;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                alert("Nomor berhasil disalin!");
+            });
+        }
+
+        function processOrder() {
+            if (!selectedProduct || !selectedPaymentMethod) return;
+
+            const msg = `${ADMIN_CONFIG.storeName} - Order Baru\n\n` +
+                       `🛍️ *Produk:* ${selectedProduct.name}\n` +
+                       `💰 *Harga:* ${formatRupiah(selectedProduct.price)}\n` +
+                       `💳 *Metode Bayar:* ${selectedPaymentMethod}\n\n` +
+                       `Saya sudah melakukan pembayaran. Mohon diproses segera. Terima kasih!`;
             
             const url = `https://wa.me/${ADMIN_CONFIG.whatsappNumber}?text=${encodeURIComponent(msg)}`;
             window.open(url, '_blank');
+            closeModal();
         }
 
-        // Jalankan
         init();
+        document.getElementById('paymentModal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
     </script>
 </body>
-</html>
+    </html>
