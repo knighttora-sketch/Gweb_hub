@@ -59,12 +59,69 @@
             text-align: center;
             border-bottom-left-radius: 2rem;
             border-bottom-right-radius: 2rem;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
         .hero h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
         .hero p { opacity: 0.9; font-size: 0.9rem; line-height: 1.5; }
 
-        /* --- CATEGORY --- */
+        /* --- SEARCH & FILTER BAR --- */
+        .tools-bar {
+            padding: 0 1rem 1rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .search-box {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.8rem 1rem 0.8rem 2.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: white;
+            font-family: inherit;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            transition: border 0.2s;
+        }
+        .search-input:focus { border-color: var(--primary); }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1.2rem;
+        }
+
+        .filter-sort-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .filter-btn {
+            background: white;
+            border: 1px solid var(--border);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+        .filter-btn:hover { background: #f1f5f9; border-color: var(--primary); color: var(--primary); }
+
+        /* --- CATEGORY TABS --- */
         .category-scroll {
             display: flex;
             gap: 0.75rem;
@@ -168,7 +225,7 @@
         .payment-detail-box {
             background: #f8fafc; border: 1px dashed var(--border);
             padding: 1.5rem; border-radius: 12px; text-align: center; margin-bottom: 1.5rem;
-            display: none; /* Hidden default */
+            display: none;
         }
         .payment-detail-box.active { display: block; animation: fadeIn 0.3s; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -176,9 +233,9 @@
         .detail-label { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem; }
         .detail-value {
             font-size: 1.25rem; font-weight: 700; color: var(--text-main);
-            margin-bottom: 0.5rem; user-select: all; /* Agar mudah di-copy */
+            margin-bottom: 0.5rem; user-select: all; cursor: pointer;
         }
-        .detail-value.copyable { cursor: pointer; border-bottom: 1px dotted var(--text-muted); }
+        .detail-value:hover { background: #e2e8f0; }
         
         .qris-container { display: flex; justify-content: center; margin-bottom: 1rem; }
         .qris-img { width: 200px; height: 200px; object-fit: contain; border: 1px solid var(--border); border-radius: 8px; }
@@ -210,7 +267,27 @@
     </header>
 
     <main class="container">
+        
+        <!-- SEARCH & SORT -->
+        <div class="tools-bar">
+            <div class="search-box">
+                <i class="ph ph-magnifying-glass search-icon"></i>
+                <input type="text" class="search-input" id="searchInput" placeholder="Cari nama produk..." oninput="handleSearch()">
+            </div>
+            
+            <div class="filter-sort-container">
+                <div style="font-size:0.85rem; color:var(--text-muted);">Urutkan Harga:</div>
+                <button class="filter-btn" onclick="toggleSort()">
+                    <span id="sortLabel">Terendah - Tertinggi</span>
+                    <i class="ph ph-arrows-down-up"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- CATEGORY TABS -->
         <div class="category-scroll" id="categoryScroll"></div>
+
+        <!-- PRODUCT GRID -->
         <div id="productGrid" class="product-grid"></div>
     </main>
 
@@ -238,19 +315,15 @@
                 </div>
             </div>
 
-            <!-- AREA DINAMIS DETAIL (Muncul sesuai pilihan) -->
-            
-            <!-- 1. DETAIL DANA -->
+            <!-- AREA DINAMIS DETAIL -->
             <div id="detail-DANA" class="payment-detail-box">
                 <div class="detail-label">Nomor DANA</div>
                 <div class="detail-value copyable" onclick="copyToClip('CONFIG_DANA')">
                     <span id="display-DANA">Loading...</span>
-                    <i class="ph ph-copy" style="font-size:0.8rem; margin-left:5px; opacity:0.5;"></i>
                 </div>
-                <p style="font-size:0.8rem; color:var(--text-muted);">Klik nomor untuk menyalin</p>
+                <p style="font-size:0.75rem; color:var(--text-muted); margin-top:0.5rem;">Klik untuk menyalin</p>
             </div>
 
-            <!-- 2. DETAIL QRIS -->
             <div id="detail-QRIS" class="payment-detail-box">
                 <div class="qris-container">
                     <img id="display-QRIS" src="" class="qris-img" alt="QRIS">
@@ -258,7 +331,6 @@
                 <div class="detail-label">Scan QRIS di atas</div>
             </div>
 
-            <!-- 3. DETAIL BANKING -->
             <div id="detail-Banking" class="payment-detail-box">
                 <div class="detail-label">Bank</div>
                 <div class="detail-value" id="display-BankName" style="font-size:1rem;">Loading...</div>
@@ -266,7 +338,6 @@
                 <div class="detail-label" style="margin-top:1rem;">Nomor Rekening</div>
                 <div class="detail-value copyable" onclick="copyToClip('CONFIG_BANK')">
                     <span id="display-Bank">Loading...</span>
-                    <i class="ph ph-copy" style="font-size:0.8rem; margin-left:5px; opacity:0.5;"></i>
                 </div>
             </div>
 
@@ -278,26 +349,16 @@
 
     <script>
         // ==========================================
-        // KONFIGURASI ADMIN (ISI DATA ANDA DI SINI)
+        // KONFIGURASI ADMIN
         // ==========================================
         const ADMIN_CONFIG = {
-            whatsappNumber: "628513268291", 
+            whatsappNumber: "6281234567890", 
             storeName: "KSHOP",
-            
-            // --- DATA PEMBAYARAN ---
-            
-            // 1. DANA
             danaNumber: "0812-3456-7890", 
-            
-            // 2. QRIS
-            // Masukkan Link Gambar QRIS Anda di sini (bisa link GitHub / Imgur)
-            // Contoh: "https://raw.githubusercontent.com/username/repo/main/qris.jpg"
             qrisImage: "https://i.ibb.co.com/p6MCTXxZ/image.webp", 
-            
-            // 3. BANKING
             bankName: "BCA",
             bankAccount: "123-456-7890",
-            bankOwner: "Nama Pemilik Rek"
+            bankOwner: "William Afton"
         };
 
         // ==========================================
@@ -307,7 +368,8 @@
             { id: 1, name: "Diamond 1000", price: 150000, category: "Top Up", image: null },
             { id: 2, name: "Weekly Diamond Pass", price: 28000, category: "Voucher", image: null },
             { id: 3, name: "Epic Badge - Radiant", price: 150000, category: "Item", image: null },
-            { id: 4, name: "Starlight Member", price: 150000, category: "Top Up", image: null }
+            { id: 4, name: "Founder Infinity", price: 150000, category: "Founder", image: null },
+            { id: 5, name: "Starlight Member", price: 150000, category: "Top Up", image: null }
         ];
 
         // ==========================================
@@ -318,6 +380,8 @@
         let activeCategory = 'all';
         let selectedProduct = null;
         let selectedPaymentMethod = null;
+        let searchQuery = '';
+        let sortOrder = 'asc'; // 'asc' = Termurah, 'desc' = Termahal
 
         function formatRupiah(num) {
             return 'Rp ' + num.toLocaleString('id-ID');
@@ -326,9 +390,9 @@
         function init() {
             loadProducts();
             renderCategories();
-            renderProducts();
+            filterAndRenderProducts(); // Fungsi baru yang gabung
             
-            // Pre-load Data ke UI
+            // Pre-load Data
             document.getElementById('display-DANA').innerText = ADMIN_CONFIG.danaNumber;
             document.getElementById('display-QRIS').src = ADMIN_CONFIG.qrisImage;
             document.getElementById('display-BankName').innerText = ADMIN_CONFIG.bankName;
@@ -354,13 +418,45 @@
             container.innerHTML = html;
         }
 
-        function renderProducts() {
+        // --- FUNGSI PENCARIAN & SORTING (BARU) ---
+        function handleSearch() {
+            searchQuery = document.getElementById('searchInput').value.toLowerCase();
+            filterAndRenderProducts();
+        }
+
+        function toggleSort() {
+            sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+            const label = sortOrder === 'asc' ? 'Terendah - Tertinggi' : 'Tertinggi - Terendah';
+            document.getElementById('sortLabel').innerText = label;
+            
+            // Ubah ikon (opsional visual)
+            const icon = document.querySelector('.filter-btn i');
+            icon.className = sortOrder === 'asc' ? 'ph ph-arrows-down-up' : 'ph ph-arrows-up-down';
+            
+            filterAndRenderProducts();
+        }
+
+        function filterAndRenderProducts() {
             const grid = document.getElementById('productGrid');
             grid.innerHTML = '';
-            const filtered = activeCategory === 'all' ? products : products.filter(p => p.category.toLowerCase() === activeCategory.toLowerCase());
+
+            // 1. Filter Kategori
+            let filtered = activeCategory === 'all' 
+                ? products 
+                : products.filter(p => p.category.toLowerCase() === activeCategory.toLowerCase());
+
+            // 2. Filter Pencarian (Search)
+            if (searchQuery) {
+                filtered = filtered.filter(p => p.name.toLowerCase().includes(searchQuery));
+            }
+
+            // 3. Sorting Harga
+            filtered.sort((a, b) => {
+                return sortOrder === 'asc' ? a.price - b.price : b.price - a.price;
+            });
 
             if (filtered.length === 0) {
-                grid.innerHTML = `<div class="empty-state"><i class="ph ph-package"></i><p>Belum ada produk.</p></div>`;
+                grid.innerHTML = `<div class="empty-state"><i class="ph ph-magnifying-glass"></i><p>Produk tidak ditemukan.</p></div>`;
                 return;
             }
 
@@ -386,7 +482,7 @@
         function filterCategory(category) {
             activeCategory = category;
             renderCategories();
-            renderProducts();
+            filterAndRenderProducts(); // Panggil fungsi gabungan
         }
 
         // --- LOGIKA MODAL PEMBAYARAN ---
@@ -409,19 +505,11 @@
 
         function showPaymentDetail(method) {
             selectedPaymentMethod = method;
-            
-            // 1. Highlight tombol
             document.querySelectorAll('.pay-option').forEach(el => el.classList.remove('selected'));
             document.getElementById(`opt-${method}`).classList.add('selected');
-
-            // 2. Hide semua detail
             document.querySelectorAll('.payment-detail-box').forEach(el => el.classList.remove('active'));
-
-            // 3. Show detail yang dipilih
             const detailBox = document.getElementById(`detail-${method}`);
             if(detailBox) detailBox.classList.add('active');
-
-            // 4. Enable tombol konfirmasi
             document.getElementById('btnConfirmWA').disabled = false;
         }
 
@@ -429,9 +517,8 @@
             let text = "";
             if(type === 'CONFIG_DANA') text = ADMIN_CONFIG.danaNumber;
             if(type === 'CONFIG_BANK') text = `${ADMIN_CONFIG.bankAccount} (${ADMIN_CONFIG.bankName} - ${ADMIN_CONFIG.bankOwner})`;
-            
             navigator.clipboard.writeText(text).then(() => {
-                alert("Nomor berhasil disalin!");
+                alert("Berhasil disalin!");
             });
         }
 
@@ -455,4 +542,4 @@
         });
     </script>
 </body>
-    </html>
+</html>
